@@ -93,8 +93,15 @@ void SetWindow(char* name)
 	{
 		SetWindowLong(hVideoParent,GWL_STYLE,((GetWindowLong(hVideoParent,GWL_STYLE) & ~WS_POPUP) & ~WS_OVERLAPPEDWINDOW ) | WS_CHILD );
 		//SetWindowLong(hVideoParent,GWL_EXSTYLE,GetWindowLong(hVideoParent,GWL_EXSTYLE) & ~WS_EX_CLIENTEDGE  & ~WS_EX_WINDOWEDGE  );
-		SetWindowPos(hVideoParent,HWND_TOP,100,100, 200, 200, SWP_SHOWWINDOW );
+		POINT point;
+		point.x = 0;
+		point.y = 50;
+		bool result = ScreenToClient(hMainWindow,&point);
+		if(result)
+		{
+			SetWindowPos(hVideoParent,HWND_TOP,point.x,point.y, 200, 200, SWP_SHOWWINDOW );
 
+		}
 		SetParent(hVideoParent,hMainWindow);
 
 		//SetWindowPos(hVideoParent,HWND_TOP, 0, 0, 100, 100, SWP_SHOWWINDOW);
